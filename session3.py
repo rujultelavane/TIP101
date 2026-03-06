@@ -43,6 +43,7 @@ words = ["eat", "tea", "tan", "ate", "nat", "bat"]
 print(group_anagrams(words))
 
 ############# BREAKOUT ROOM PRACTICE -- UNIT 3 #############
+#Session 1 version 2
 #1.
 def match_made(dictionary):
     for key, value in dictionary.items():

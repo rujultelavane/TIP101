@@ -17,14 +17,27 @@ print(sample5[0:10:2]) #gives first 10 characters, every other
  - return: boolean T/F
 '''
 
-#plan
+#plan - hint: python has a built in function, isalpha() that might help
 '''
 1. working with unknown size string - clean up the string to know the expected format
 2. wanna check for all 26 letters using a dictionary
+2.5 we need to use a for loop to iterate thru each char
     - key -> letter, value -> true/false
 3. count # keys in dictionary, if == 26, (return value)
 '''
 def is_pangram(sentence):
     lowercase_sentence = sentence.lower()
-    letter_appearances = {}
+    letter_appearances = {} #key letter, value T/F
 
+    for char in lowercase_sentence:
+        if char.isalpha() == False:
+            pass #pass == ignore, continue == jump to next iteration
+        if char not in letter_appearances: #first time seeing it
+            letter_appearances[char] = True
+    
+    if(len(letter_appearances) == 26):
+        return True
+    else:
+        return False
+
+inputSample = "The quick brown fox jumps over the lazy dog."

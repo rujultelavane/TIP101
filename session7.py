@@ -81,9 +81,103 @@ def valid_palindrome(s):
         else:
             #we will allow for scooting only ONCE.
             #we will perform normal palindrome checking on both segments.
-            return classic_palindrome(s, left+=1, right) or classic_palindrome(s, left, right-=1)
+            return classic_palindrome(s, left+1, right) or classic_palindrome(s, left, right-1)
     return True
 
-    #implement palindrome logic
+############# BREAKOUT ROOM PRACTICE -- UNIT 4 #############
+'''
+Write a function is_prime() that takes in a positive integer n and 
+returns True if it is a prime number and False otherwise. 
+A prime number is a number greater than 1 that has no positive 
+divisors other than 1 and itself.
+'''
+def is_prime(n):
+    if n <= 1: 
+        return False
+    if n == 2:
+        return True
     
-    # while left<right
+    #if even is false
+    if n % 2 == 0:
+        return False
+    
+    x = 3
+    while x<n:
+        if n%x == 0: #divisible by x
+            return False
+        x+=2
+    
+    return True
+
+print(is_prime(5))
+print(is_prime(12))
+print(is_prime(9))
+    
+'''
+Write a function reverse_list() that takes in a list lst and returns elements of the list in reverse order. The list should be reversed in-place without using list slicing (e.g. lst[::-1]).
+
+Instead, use the two-pointer approach, which is a common technique in which we initialize two variables (also called a pointer in this context) to track different indices or places in a list or string, then moves the pointers to point at new indices based on certain conditions. In the most common variation of the two-pointer approach, we initialize one variable to point at the beginning of a list and a second variable/pointer to point at the end of list. We then shift the pointers to move inwards through the list towards each other, until our problem is solved or the pointers reach the opposite ends of the list.
+'''
+def reverse_list(lst): #time: O(n)
+    left = 0
+    right = len(lst) -1
+
+    while left < right:
+        lst[left], lst[right] = lst[right], lst[left] #unpacking - assigning whats at the left to the right and viceversa
+        
+        left += 1
+        right -= 1
+    return lst
+
+
+print(reverse_list([1, 2, 3, 4, 5]))
+
+'''
+Write a function that takes in an integer list nums as a parameter and moves 
+all the even integers at the beginning of the list followed by all the odd integers. 
+The function returns any list that satisfies this condition.
+'''
+def sort_array_by_parity(nums):
+    left = 0
+    right = len(nums)-1
+
+    while left<right:
+        if nums[left] %2 == 0: #its in the right spot
+            left += 1
+        elif nums[right] %2 != 0: #right spot
+            right -= 1
+        else: #both are out of place
+            nums[left], nums[right] = nums[right], nums[left]
+            left += 1
+            right -= 1
+    
+    return nums
+
+nums = [3,1,2,4]
+nums2 = [0]
+print(sort_array_by_parity(nums))
+print(sort_array_by_parity(nums2))
+
+'''
+Write a function first_palindrome() that takes in a list of strings words as a parameter and returns the first 
+palindromic string in the list. If there is no such string, return an empty string ""
+'''
+def first_palindrome(words):
+    if(len(words) == 0):
+        return ""
+    for word in words: #check if every word is a palindrome
+        if classic_palindrome(word, 0, len(word)-1): #call helper function used in lecture
+            return word #if its a palindrome return it
+    return ""
+
+words = ["abc","car","ada","racecar","cool"]
+palindrome1 = first_palindrome(words)
+print(palindrome1)
+
+words2 = ["abc","racecar","cool"]
+palindrome2 = first_palindrome(words2)
+print(palindrome2)
+
+words3 = ["abc", "def", "ghi"]
+palindrome3 = first_palindrome(words3)
+print(palindrome3)
